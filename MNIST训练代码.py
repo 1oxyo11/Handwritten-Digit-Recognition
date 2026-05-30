@@ -1,6 +1,5 @@
 """
 项目1：手写数字识别 - MNIST + LeNet-5
-完整训练 + 评估，一次性拿到所有指标
 """
 
 import paddle
@@ -44,7 +43,7 @@ model.fit(
     verbose=1
 )
 
-# ── 模型评估（内置）────────────────────────────────────────────────────
+# ── 模型评估 ────────────────────────────────────────────────────
 print('\n' + '='*60)
 print('内置评估...')
 print('='*60)
@@ -68,7 +67,7 @@ all_preds = []
 all_targets = []
 
 # 用 model.predict_batch 预测整个测试集
-print('预测测试集（可能需要几分钟）...')
+print('预测测试集...')
 for i, (img, label) in enumerate(test_dataset):
     img_batch = np.expand_dims(img.astype('float32'), axis=0)
     out = model.predict_batch(img_batch)[0]
@@ -79,7 +78,7 @@ for i, (img, label) in enumerate(test_dataset):
     if (i + 1) % 2000 == 0:
         print(f'  已预测 {i+1}/{len(test_dataset)} 张图片...')
 
-print(f'预测完成！共 {len(all_preds)} 个样本')
+print(f'预测完成，共 {len(all_preds)} 个样本')
 
 # 计算 TP/FP/FN
 tp = defaultdict(int); fp = defaultdict(int); fn = defaultdict(int)
@@ -107,9 +106,9 @@ print(f'  Accuracy:       {test_acc:.4f}')
 print(f'  Error-rate:     {error_rate:.4f}')
 print(f'{"="*60}')
 
-# ── 输出结果摘要（可填入报告）────────────────────────────────────────
+# ── 输出结果 ────────────────────────────────────────
 print('\n┌─────────────────────────────────────────────────────────┐')
-print('│  项目1实验结果（可填入报告）                              │')
+print('│  项目1实验结果                            │')
 print('├─────────────────────────────────────────────────────────┤')
 print(f'│  Accuracy:       {test_acc:.4f}  ({test_acc*100:.2f}%)                   │')
 print(f'│  Error-rate:     {error_rate:.4f}  ({error_rate*100:.2f}%)                 │')
@@ -117,7 +116,7 @@ print(f'│  Macro Recall:   {macro_recall:.4f}                                 
 print(f'│  Macro Precision:{macro_precision:.4f}                                      │')
 print('└─────────────────────────────────────────────────────────┘')
 
-# ── 保存结果到 JSON（供报告生成使用）─────────────────────────────────
+# ── 保存结果到 JSON ─────────────────────────────────
 import json
 import os
 
@@ -133,4 +132,4 @@ with open(result_path, 'w', encoding='utf-8') as f:
     json.dump(result, f, indent=2, ensure_ascii=False)
 
 print(f'\n结果已保存至: {os.path.abspath(result_path)}')
-print('现在可以运行 CIFAR-10 训练脚本（训练B）！')
+
